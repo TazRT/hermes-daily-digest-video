@@ -1,0 +1,10 @@
+{
+  // プロジェクト名
+  "name": "hermes-daily-digest-video",
+  // 互換性の基準日
+  "compatibility_date": "2026-11-22",
+  // 公開するフォルダの指定
+  "assets": {
+    "directory": "./latest"
+  }
+}
