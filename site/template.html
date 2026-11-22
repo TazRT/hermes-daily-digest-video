@@ -153,6 +153,12 @@
   @media (min-width:1080px){
     .grid{grid-template-columns:repeat(3,minmax(0,1fr))}
   }
+  /* 本数が少ないときは間延びしないよう列数と幅を合わせる */
+  .grid.grid--two{grid-template-columns:1fr}
+  @media (min-width:640px){
+    .grid.grid--two{grid-template-columns:repeat(2,minmax(0,1fr));max-width:860px;margin-inline:auto}
+  }
+  .grid.grid--one{grid-template-columns:1fr;max-width:min(100%,460px);margin-inline:auto}
   .card{
     display:flex;flex-direction:column;
     background:var(--surface);
@@ -232,17 +238,6 @@
     transition:border-color .18s ease, color .18s ease, background-color .18s ease;
   }
   .cta:hover{border-color:#9a9aa6;color:#fff;background:#161618;text-decoration:none}
-  /* ---------- footer ---------- */
-  .site-foot{
-    border-top:1px solid var(--border);
-    padding-block:clamp(28px,4vw,44px) clamp(40px,6vw,72px);
-    display:flex;flex-wrap:wrap;gap:14px 32px;justify-content:space-between;align-items:baseline;
-    font-size:13px;color:var(--faint);
-  }
-  .site-foot p{margin:0}
-  .site-foot nav{display:flex;flex-wrap:wrap;gap:8px 20px}
-  .site-foot a{color:var(--muted)}
-  .site-foot a:hover{color:#fff}
   .empty{
     padding:28px;
     border:1px dashed var(--border-strong);
@@ -284,18 +279,10 @@
   </section>
 
   <section class="reels wrap" aria-label="公開中の動画">
-    <div class="grid">
+    <div class="grid{{GRID_CLASS}}">
 {{CARDS}}
     </div>
   </section>
 </main>
-
-<footer class="site-foot wrap">
-  <p>毎朝 7:00 ごろ更新／{{YEAR}} 谷元 明文</p>
-  <nav aria-label="関連リンク">
-    <a href="https://github.com/TazRT/hermes-daily-digest-video" rel="noopener">GitHub</a>
-    <a href="https://hermes-daily-digest-video.ryosuke-tanimoto.workers.dev/" rel="noopener">Cloudflare Workers</a>
-  </nav>
-</footer>
 </body>
 </html>
