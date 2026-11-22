@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#000000">
+<title>{{TITLE}}</title>
+<meta name="description" content="豊中市 少路の翌日の天気を、毎朝つむぎ（女の子版）とテテ（男の子版）が読み上げる短尺動画。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400..700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#000;
+    --surface:#0c0c0d;
+    --surface-2:#141416;
+    --border:#242428;
+    --border-strong:#66666f;
+    --text:#f5f5f7;
+    --muted:#a8adb8;
+    --faint:#8d94a1;
+    --accent:#cfd6e4;
+    --radius-card:16px;
+    --radius-media:10px;
+    --step:clamp(20px, 3.2vw, 32px);
+    --font-sans:'Noto Sans JP', system-ui, -apple-system, 'Segoe UI', 'Hiragino Kaku Gothic ProN',
+      'Yu Gothic UI', 'Yu Gothic', Meiryo, sans-serif;
+    --font-mono:ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;
+  }
+  *,*::before,*::after{box-sizing:border-box}
+  html{
+    color-scheme:dark;
+    background:var(--bg);
+    -webkit-text-size-adjust:100%;
+  }
+  @media (pointer:fine){
+    html{overscroll-behavior:none}
+  }
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--font-sans);
+    font-size:16px;
+    line-height:1.7;
+    letter-spacing:.01em;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+  a{color:var(--accent);text-decoration:none}
+  a:hover{color:#fff;text-decoration:underline;text-underline-offset:.18em}
+  :where(a,button,video,summary){touch-action:manipulation}
+  :where(a,button){-webkit-tap-highlight-color:rgba(255,255,255,.12)}
+  :focus-visible{
+    outline:2px solid #fff;
+    outline-offset:3px;
+    border-radius:4px;
+  }
+  video:focus-visible{outline-offset:-2px;border-radius:var(--radius-media)}
+  .skip{
+    position:absolute;left:-9999px;top:0;z-index:10;
+    padding:12px 18px;background:#fff;color:#000;font-weight:600;border-radius:0 0 8px 0;
+  }
+  .skip:focus-visible{left:0}
+  .wrap{
+    width:100%;
+    max-width:1240px;
+    margin-inline:auto;
+    padding-inline:clamp(18px, 4vw, 44px);
+    padding-left:max(clamp(18px, 4vw, 44px), env(safe-area-inset-left));
+    padding-right:max(clamp(18px, 4vw, 44px), env(safe-area-inset-right));
+  }
+  /* ---------- header ---------- */
+  .site-head{
+    display:flex;align-items:center;justify-content:space-between;gap:20px;
+    padding-block:clamp(18px,2.4vw,28px);
+    border-bottom:1px solid var(--border);
+  }
+  .brand{
+    display:flex;align-items:baseline;gap:10px;min-width:0;
+  }
+  .brand__mark{
+    font-family:var(--font-mono);
+    font-size:12px;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--faint);
+    white-space:nowrap;
+  }
+  .brand__place{
+    font-size:14px;font-weight:600;color:var(--text);white-space:nowrap;
+  }
+  .head-link{
+    font-size:13px;color:var(--muted);white-space:nowrap;
+    border-bottom:1px solid transparent;padding-bottom:2px;
+  }
+  .head-link:hover{color:#fff;border-bottom-color:var(--border-strong);text-decoration:none}
+  /* ---------- hero ---------- */
+  .hero{padding-block:clamp(40px,7vw,84px) clamp(24px,4vw,40px)}
+  .eyebrow{
+    margin:0 0 18px;
+    font-family:var(--font-mono);
+    font-size:11px;
+    font-weight:500;
+    letter-spacing:.2em;
+    text-transform:uppercase;
+    color:var(--faint);
+  }
+  h1{
+    margin:0;
+    font-size:clamp(30px, 6.2vw, 56px);
+    font-weight:600;
+    line-height:1.16;
+    letter-spacing:-.02em;
+    text-wrap:balance;
+  }
+  .lead{
+    margin:20px 0 0;
+    max-width:56ch;
+    color:var(--muted);
+    font-size:clamp(15px,1.7vw,17px);
+    line-height:1.75;
+    text-wrap:pretty;
+  }
+  .hero-meta{
+    margin:clamp(26px,4vw,38px) 0 0;
+    display:flex;flex-wrap:wrap;align-items:baseline;gap:10px 26px;
+    padding-top:20px;
+    border-top:1px solid var(--border);
+    font-size:13px;color:var(--muted);
+  }
+  .hero-meta dt{
+    display:inline;margin:0;color:var(--faint);
+    font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  }
+  .hero-meta dd{
+    display:inline;margin:0 0 0 10px;color:var(--text);
+    font-variant-numeric:tabular-nums;
+  }
+  .hero-meta div{display:flex;align-items:baseline;min-width:0}
+  /* ---------- video grid ---------- */
+  .reels{padding-bottom:clamp(48px,7vw,96px)}
+  .grid{
+    display:grid;
+    gap:var(--step);
+    grid-template-columns:1fr;
+    align-items:stretch;
+  }
+  @media (min-width:640px){
+    .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  }
+  @media (min-width:1080px){
+    .grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+  }
+  .card{
+    display:flex;flex-direction:column;
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:var(--radius-card);
+    padding:14px;
+    transition:border-color .18s ease, background-color .18s ease;
+  }
+  .card:hover{border-color:var(--border-strong);background:var(--surface-2)}
+  .card__head{padding:2px 4px 14px}
+  .frame{
+    width:100%;
+    margin-inline:auto;
+    background:#000;
+    border-radius:var(--radius-media);
+    overflow:hidden;
+    line-height:0;
+  }
+  video{
+    display:block;
+    width:100%;
+    height:auto;
+    aspect-ratio:768 / 1344;
+    background:#000;
+    border-radius:var(--radius-media);
+  }
+  .card__foot{
+    margin-top:auto;
+    padding:16px 4px 2px;
+    display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;
+    gap:10px 16px;
+  }
+  h2{
+    margin:0;
+    font-size:17px;
+    font-weight:600;
+    line-height:1.4;
+    letter-spacing:0;
+    scroll-margin-top:2rem;
+  }
+  .card__note{
+    margin:6px 0 0;
+    font-size:13px;
+    color:var(--muted);
+    line-height:1.65;
+    max-width:42ch;
+    min-height:3.3em;
+  }
+  .facts{
+    margin:0;
+    display:flex;flex-wrap:wrap;gap:6px;
+    padding:0;list-style:none;
+    font-family:var(--font-mono);
+    font-size:11px;
+    letter-spacing:.04em;
+    color:var(--faint);
+    font-variant-numeric:tabular-nums;
+    min-width:0;
+  }
+  .facts li{
+    padding:3px 8px;
+    border:1px solid var(--border);
+    border-radius:999px;
+    white-space:nowrap;
+  }
+  .facts li.file{
+    max-width:100%;
+    overflow-wrap:anywhere;
+    white-space:normal;
+    border-style:dashed;
+  }
+  .cta{
+    display:inline-flex;align-items:center;gap:6px;
+    font-size:13px;font-weight:500;white-space:nowrap;
+    padding:7px 12px;border:1px solid var(--border-strong);border-radius:8px;
+    color:var(--text);
+    transition:border-color .18s ease, color .18s ease, background-color .18s ease;
+  }
+  .cta:hover{border-color:#9a9aa6;color:#fff;background:#161618;text-decoration:none}
+  /* ---------- footer ---------- */
+  .site-foot{
+    border-top:1px solid var(--border);
+    padding-block:clamp(28px,4vw,44px) clamp(40px,6vw,72px);
+    display:flex;flex-wrap:wrap;gap:14px 32px;justify-content:space-between;align-items:baseline;
+    font-size:13px;color:var(--faint);
+  }
+  .site-foot p{margin:0}
+  .site-foot nav{display:flex;flex-wrap:wrap;gap:8px 20px}
+  .site-foot a{color:var(--muted)}
+  .site-foot a:hover{color:#fff}
+  .empty{
+    padding:28px;
+    border:1px dashed var(--border-strong);
+    border-radius:var(--radius-card);
+    color:var(--muted);
+  }
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{
+      animation-duration:.01ms !important;
+      animation-iteration-count:1 !important;
+      transition-duration:.01ms !important;
+      scroll-behavior:auto !important;
+    }
+    .card:hover{transform:none}
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">本文へスキップ</a>
+
+<header class="site-head wrap">
+  <div class="brand">
+    <span class="brand__mark">Daily Weather</span>
+    <span class="brand__place">豊中市 少路</span>
+  </div>
+  <a class="head-link" href="https://github.com/TazRT/hermes-daily-digest-video" rel="noopener">リポジトリ</a>
+</header>
+
+<main id="main">
+  <section class="hero wrap" aria-labelledby="page-title">
+    <p class="eyebrow">Auto&nbsp;generated · ComfyUI</p>
+    <h1 id="page-title">明日の天気を、毎朝ふたりが読み上げます。</h1>
+    <p class="lead">豊中市 少路の明日の天気を、つむぎ（女の子版）とテテ（男の子版）が15秒でお伝えします。動画はその場で再生できます。</p>
+    <dl class="hero-meta">
+      <div><dt>Updated</dt><dd><time datetime="{{UPDATED_ISO}}">{{UPDATED_JA}}</time></dd></div>
+      <div><dt>Clips</dt><dd>{{COUNT}}&nbsp;本</dd></div>
+      <div><dt>Total</dt><dd>{{RUNTIME}}</dd></div>
+    </dl>
+  </section>
+
+  <section class="reels wrap" aria-label="公開中の動画">
+    <div class="grid">
+{{CARDS}}
+    </div>
+  </section>
+</main>
+
+<footer class="site-foot wrap">
+  <p>毎朝 7:00 ごろ更新／{{YEAR}} 谷元 明文</p>
+  <nav aria-label="関連リンク">
+    <a href="https://github.com/TazRT/hermes-daily-digest-video" rel="noopener">GitHub</a>
+    <a href="https://hermes-daily-digest-video.ryosuke-tanimoto.workers.dev/" rel="noopener">Cloudflare Workers</a>
+  </nav>
+</footer>
+</body>
+</html>
